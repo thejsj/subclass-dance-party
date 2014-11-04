@@ -20,7 +20,6 @@ Dancer.prototype.pushClasses = function(classes){
 }
 
 Dancer.prototype.update = function(beat, maxLoopInterval, timeInterval){  //beat will always be 0 - 15
-  console.log(this.enableMovementBehaviors);
   for(var key in this.behaviors){
     var behavior = this.behaviors[key];
     if (!behavior.isMovementRelated || (behavior.isMovementRelated && this.enableMovementBehaviors)) {
@@ -45,7 +44,6 @@ Dancer.prototype.setPosition = function(){
 };
 
 Dancer.prototype.pushToWall = function () {
-  console.log('Dancer.pushToWall');
   var that = this;
   TweenMax.to(this.$node[0], 0.5, {
     css: {'left': '0px'},
@@ -58,12 +56,52 @@ Dancer.prototype.goToOriginalPosition = function () {
   TweenMax.to(this.$node[0], 3, {
     css: {'left': this.left},
     ease:Linear.easeNone,
-    onComplete: this.resetMovementBehaviours.bind(this)
+    onComplete: this.resetMovementBehaviors.bind(this)
   });
 };
 
-Dancer.prototype.resetMovementBehaviours = function () {
+Dancer.prototype.resetMovementBehaviors = function () {
   this.enableMovementBehaviors = true;
+};
+
+Dancer.prototype.animateToPosition = function (x, y, time, callback) {
+  TweenMax.to(this.$node[0], time, {
+    css: {'top': y, 'left': x},
+    ease:Linear.easeNone,
+    onComplete: callback
+  });
+};
+
+Dancer.prototype.activateCongaLine = function (index, x, y) {
+  var radius = 200;
+  this.congaTween = TweenMax.to(
+    this.$node[0],
+    4,
+    {
+      bezier: [
+        {x: radius, y: radius},
+        {x: 0, y: (radius * 2)},
+        {x: -radius, y: radius},
+        {x: 0, y: 0}
+      ],
+      ease:Linear.easeNone,
+      paused:true,
+      repeat: -1
+    }
+  );
+  this.animateToPosition(x, y, index * 0.5, function () {
+    this.congaTween.play();
+  }.bind(this));
+};
+
+Dancer.prototype.deactivateCongaLine = function () {
+  if (this.congaTween) {
+    window.congaTween = this.congaTween;
+    this.congaTween.pause();
+    this.resetMovementBehaviors()
+    this.goToOriginalPosition();
+    delete this.congaTween;
+  }
 };
 
 Dancer.prototype.miscBehaviors = {
