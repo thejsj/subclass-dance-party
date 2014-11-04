@@ -8,7 +8,7 @@ var Dancer = function(top, left){
   this.behaviors = {};
   this.setPosition();
   this.enableMovementBehaviors = true;
-  };
+};
 
 Dancer.prototype.pushClasses = function(classes){
   if(this.classes===undefined){
@@ -20,6 +20,7 @@ Dancer.prototype.pushClasses = function(classes){
 }
 
 Dancer.prototype.update = function(beat, maxLoopInterval, timeInterval){  //beat will always be 0 - 15
+  console.log(this.enableMovementBehaviors);
   for(var key in this.behaviors){
     var behavior = this.behaviors[key];
     if (!behavior.isMovementRelated || (behavior.isMovementRelated && this.enableMovementBehaviors)) {
@@ -44,7 +45,25 @@ Dancer.prototype.setPosition = function(){
 };
 
 Dancer.prototype.pushToWall = function () {
-  TweenMax.to(this.$node[0], 1000 , {"css": {'left': '0px' }, ease:Linear.easeIn})
+  console.log('Dancer.pushToWall');
+  var that = this;
+  TweenMax.to(this.$node[0], 0.5, {
+    css: {'left': '0px'},
+    ease:Linear.easeNone,
+    onComplete: this.goToOriginalPosition.bind(this)
+  });
+};
+
+Dancer.prototype.goToOriginalPosition = function () {
+  TweenMax.to(this.$node[0], 3, {
+    css: {'left': this.left},
+    ease:Linear.easeNone,
+    onComplete: this.resetMovementBehaviours.bind(this)
+  });
+};
+
+Dancer.prototype.resetMovementBehaviours = function () {
+  this.enableMovementBehaviors = true;
 };
 
 Dancer.prototype.miscBehaviors = {

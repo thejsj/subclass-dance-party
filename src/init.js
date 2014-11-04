@@ -7,6 +7,9 @@ $(document).ready(function () {
       self.$addDancerButton = $(".addDancerButton");
       self.$pushToWallButton = $(".pushToWallButton");
       self.$addDancerButton.on("click", self.addDancerHandler);
+      self.$pushToWallButton
+        .css("color", 'red')
+        .on("click", self.pushToWall);
       self.index = 0;
       self.interval = 60;
       self.maxLoopInterval = 16;
@@ -16,6 +19,8 @@ $(document).ready(function () {
       self.addDancer(RonaldDancer);
       self.addDancer(RonaldDancer);
       self.addDancer(RonaldDancer);
+      self.addDancer(BananaDancer);
+      self.addDancer(ShyDancer);
     };
     self.addDancer = function (dancerConstructor) {
       var dancer = new dancerConstructor(
