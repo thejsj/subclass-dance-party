@@ -37,3 +37,9 @@ body, a:link, a:visited, a:active{
   -webkit-transform: rotate(-15deg); /* Chrome, Safari, Opera */
   transform: rotate(-15deg);
 }
+
+.tip-right{
+  -ms-transform: rotate(15deg); /* IE 9 */
+  -webkit-transform: rotate(15deg); /* Chrome, Safari, Opera */
+  transform: rotate(15deg);
+}
