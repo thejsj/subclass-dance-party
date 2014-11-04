@@ -112,4 +112,11 @@ Dancer.prototype.miscBehaviors = {
   }
 };
 
+Dancer.prototype.classToggle = function(className) {
+  return function(){
+    this.$node.toggleClass(className);
+  }
+}
+
+
 

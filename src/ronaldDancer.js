@@ -9,10 +9,8 @@ var RonaldDancer = function(top, left, timeBetweenSteps){
   }
 };
 
-
 RonaldDancer.prototype = Object.create(ImageDancer.prototype);
 RonaldDancer.prototype.constructor = RonaldDancer;
-
 RonaldDancer.prototype.moveInSquare = function (behavior, timeInterval) {
   var css;
   var distance = 35;

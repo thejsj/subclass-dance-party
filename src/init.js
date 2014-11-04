@@ -22,11 +22,11 @@ $(document).ready(function () {
       self.$pushToWallButton.on("click", self.pushWallHandler);
       self.$goIntoCongaLineButton.on("click", self.congaHandler);
 
-      // Add a couple of Ronalds
+      // Add a couple of Dancers
       self.addDancer(RonaldDancer);
       self.addDancer(RonaldDancer);
-      self.addDancer(RonaldDancer);
-      self.addDancer(BananaDancer);
+      self.addDancer(BarackDancer);
+      self.addDancer(GeorgeDancer);
       self.addDancer(ShyDancer);
     };
     self.addDancer = function (dancerConstructor) {

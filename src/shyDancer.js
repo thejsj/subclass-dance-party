@@ -1,8 +1,12 @@
 var ShyDancer = function(top, left, timeBetweenSteps){
   this.pushClasses(["shy-dancer"]);
   ImageDancer.call(this, "shy", top, left, timeBetweenSteps);
-//  this.behaviors["tip-left"] = Dancer.prototype.miscBehaviors["tip-left"];
   this.$node.hover(this.runAway.bind(this));
+  this.behaviors["background"] = {
+    frame: 0,
+    framesPerLoop: 4,
+    callback: this.addBackground
+  };
 };
 
 ShyDancer.prototype = Object.create(ImageDancer.prototype);

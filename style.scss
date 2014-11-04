@@ -1,3 +1,17 @@
+@mixin css-rotate ($rotation) {
+  -ms-transform: rotate($rotation); /* IE 9 */
+  -webkit-transform: rotate($rotation); /* Chrome, Safari, Opera */
+  transform: rotate($rotation);
+}
+
+@mixin css-background-size ($time) {
+  transition: background-size $time ease-in;
+  -moz-transition: background-size $time ease-in;
+  -ms-transition: background-size $time ease-in;
+  -o-transition: background-size $time ease-in;
+  -webkit-transition: background-size $time ease-in;
+}
+
 body, html{
   height:100%;
   overflow: hidden;
@@ -59,13 +73,29 @@ body, a:link, a:visited, a:active {
   height: 200px;
 
   &.tip-left {
-    -ms-transform: rotate(-15deg); /* IE 9 */
-    -webkit-transform: rotate(-15deg); /* Chrome, Safari, Opera */
-    transform: rotate(-15deg);
+    @include css-rotate(-15deg);
   }
 
   &.ronald {
     color: white;
+  }
+
+  &.george-dancer {
+    @include css-rotate(-20deg);
+    &.left-right {
+      @include css-rotate(20deg);
+    }
+  }
+
+  &.barack-dancer {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    @include css-background-size(500ms);
+    &.big-small {
+      background-size: 50%;
+      @include css-background-size(500ms);
+    }
   }
 }
 

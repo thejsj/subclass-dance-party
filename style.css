@@ -61,6 +61,34 @@ body, a:link, a:visited, a:active {
     transform: rotate(-15deg); }
   .dancer.ronald {
     color: white; }
+  .dancer.george-dancer {
+    -ms-transform: rotate(-20deg);
+    /* IE 9 */
+    -webkit-transform: rotate(-20deg);
+    /* Chrome, Safari, Opera */
+    transform: rotate(-20deg); }
+    .dancer.george-dancer.left-right {
+      -ms-transform: rotate(20deg);
+      /* IE 9 */
+      -webkit-transform: rotate(20deg);
+      /* Chrome, Safari, Opera */
+      transform: rotate(20deg); }
+  .dancer.barack-dancer {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: background-size 500ms ease-in;
+    -moz-transition: background-size 500ms ease-in;
+    -ms-transition: background-size 500ms ease-in;
+    -o-transition: background-size 500ms ease-in;
+    -webkit-transition: background-size 500ms ease-in; }
+    .dancer.barack-dancer.big-small {
+      background-size: 50%;
+      transition: background-size 500ms ease-in;
+      -moz-transition: background-size 500ms ease-in;
+      -ms-transition: background-size 500ms ease-in;
+      -o-transition: background-size 500ms ease-in;
+      -webkit-transition: background-size 500ms ease-in; }
 
 .shy-dancer {
   background-repeat: no-repeat;
