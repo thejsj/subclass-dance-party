@@ -34,7 +34,12 @@ $(document).ready(function () {
       for (var i = 0; i < self.dancers.length; i++) {
         self.dancers[i].update(self.index % self.maxLoopInterval, self.maxLoopInterval, self.interval);
       }
+<<<<<<< HEAD
+    }
+
+=======
     };
+>>>>>>> b8e7504c6609900cf355a20b3287546a80afeb3e
     self.init();
     return self;
   };

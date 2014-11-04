@@ -1,0 +1,62 @@
+body, html {
+  height: 100%; }
+
+body {
+  margin: 0;
+  background-color: white;
+  font-size: 18px;
+  background-image: url('images/us-flag.gif');
+  background-repeat: repeat; }
+
+body, a:link, a:visited, a:active {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  font-family: sans-serif; }
+
+.title, .addDancerButton {
+  padding: 5px 12px;
+  float: right; }
+
+.topbar {
+  height: 34px;
+  background-color: #256EB6; }
+  .topbar .title, .topbar a {
+    font-weight: bold;
+    text-shadow: #333 1px 1px 1px; }
+  .topbar .title {
+    font-size: 16px;
+    float: left;
+    padding-top: 8px;
+    font-family: Georgia, serif; }
+    .topbar .title .us-flag {
+      background-image: url('images/us-flag-2.gif');
+      background-repeat: no-repeat;
+      background-position: 110% 110%;
+      width: 22px;
+      height: 22px;
+      margin: -5px 4px 0;
+      background-size: contain;
+      display: inline-block; }
+  .topbar a {
+    padding: 9px;
+    text-transform: uppercase;
+    border: solid 1px #256EB6;
+    box-shadow: inset rgba(0, 0, 0, 0.35) 0px 0px 5px;
+    display: inline-block;
+    margin: 0; }
+
+.dancer {
+  /*  border:10px solid red;
+  border-radius:10px;*/
+  position: absolute;
+  width: 200px;
+  height: 200px; }
+  .dancer.tip-left {
+    -ms-transform: rotate(-15deg);
+    /* IE 9 */
+    -webkit-transform: rotate(-15deg);
+    /* Chrome, Safari, Opera */
+    transform: rotate(-15deg); }
+  .dancer.ronald {
+    color: white; }

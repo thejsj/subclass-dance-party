@@ -1,0 +1,13 @@
+{
+  "name": "2014-10-subclass-dance-party",
+  "version": "0.0.0",
+  "homepage": "https://github.com/thejsj/2014-10-subclass-dance-party",
+  "authors": [
+    "thejsj <jorge.silva@thejsj.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "gsap": "~1.14.2"
+  }
+}

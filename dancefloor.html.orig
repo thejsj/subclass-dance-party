@@ -14,7 +14,12 @@
   </head>
   <body>
     <div class="topbar">
+<<<<<<< HEAD
+      <span class="title">object dance party</span>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="BananaDancer">add a Banana dancer</a>
+=======
       <span class="title"><span class="us-flag"></span>Presidential Dance Party<span class="us-flag"></span></span>
+>>>>>>> b8e7504c6609900cf355a20b3287546a80afeb3e
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="RonaldDancer">add a Ronald dancer</a>
     </div>
     <script src="src/init.js"></script>
