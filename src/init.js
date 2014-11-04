@@ -1,22 +1,22 @@
-$(document).ready(function(){
-  var makeGlobalController = function(){
+$(document).ready(function () {
+  var makeGlobalController = function () {
     var self = {};
     self.dancers = [];
-    self.init = function(){
+    self.init = function () {
       self.$danceFloor = $("body");
       self.$addDancerButton = $(".addDancerButton");
-      self.$addDancerButton.on("click",self.addDancerHandler);
+      self.$addDancerButton.on("click", self.addDancerHandler);
       self.index = 0;
       self.interval = 70;
       self.maxLoopInterval = 16;
-      self.animationLoop = setInterval(self.update,self.interval);
+      self.animationLoop = setInterval(self.update, self.interval);
 
       // Add a couple of Ronalds
       self.addDancer(RonaldDancer);
       self.addDancer(RonaldDancer);
       self.addDancer(RonaldDancer);
-    }
-    self.addDancer = function(dancerConstructor){
+    };
+    self.addDancer = function (dancerConstructor) {
       var dancer = new dancerConstructor(
         self.$danceFloor.height() * Math.random(),
         self.$danceFloor.width() * Math.random(),
@@ -24,25 +24,20 @@ $(document).ready(function(){
       );
       self.$danceFloor.append(dancer.$node);
       self.dancers.push(dancer);
-    }
-    self.addDancerHandler = function(event){
+    };
+    self.addDancerHandler = function (event) {
       var dancerConstructorName = $(this).data("dancer-maker-function-name");
       self.addDancer(window[dancerConstructorName]);
-    }
-    self.update = function(){
+    };
+    self.update = function () {
       self.index++;
-      for(var i = 0; i < self.dancers.length; i++){
+      for (var i = 0; i < self.dancers.length; i++) {
         self.dancers[i].update(self.index % self.maxLoopInterval, self.maxLoopInterval, self.interval);
       }
-      console.log(self.dancers[0]);
-      console.log(self.dancers[0].update);
-    }
-
+    };
     self.init();
     return self;
-  }
-
+  };
   window.globalController = makeGlobalController();
 
 });
-
