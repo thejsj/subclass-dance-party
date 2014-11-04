@@ -1,5 +1,6 @@
 body, html{
   height:100%;
+  overflow: hidden;
 }
 body{
   margin: 0;
@@ -68,5 +69,11 @@ body, a:link, a:visited, a:active {
   }
 }
 
-
-
+.shy-dancer {
+  background-repeat: no-repeat;
+  height:40px;
+  width:35px;
+  padding:15px;
+  background-position: center center;
+  background-size: contain;
+}

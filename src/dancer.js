@@ -6,11 +6,8 @@ var Dancer = function(top, left){
   this.top = top;
   this.left = left;
   this.behaviors = {};
-
-
-  // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
-  // this one sets the position to some random default point within the body
   this.setPosition();
+  this.enableMovementBehaviors = true;
 };
 
 Dancer.prototype.pushClasses = function(classes){
@@ -23,13 +20,16 @@ Dancer.prototype.pushClasses = function(classes){
 }
 
 Dancer.prototype.update = function(beat, maxLoopInterval, timeInterval){  //beat will always be 0 - 15
+  console.log(this.enableMovementBehaviors);
   for(var key in this.behaviors){
     var behavior = this.behaviors[key];
-    // Will we update this frame ?
-    if (beat % (maxLoopInterval/behavior.framesPerLoop) === 0) {
-      // Calculate new frame
-      behavior.frame = Math.floor(beat/(maxLoopInterval/behavior.framesPerLoop)) % behavior.framesPerLoop;
-      behavior.callback.call(this, behavior, timeInterval);
+    if (!behavior.isMovementRelated || (behavior.isMovementRelated && this.enableMovementBehaviors)) {
+      // Will we update this frame ?
+      if (beat % (maxLoopInterval/behavior.framesPerLoop) === 0) {
+        // Calculate new frame
+        behavior.frame = Math.floor(beat/(maxLoopInterval/behavior.framesPerLoop)) % behavior.framesPerLoop;
+        behavior.callback.call(this, behavior, timeInterval);
+      }
     }
   }
 };
@@ -42,6 +42,28 @@ Dancer.prototype.setPosition = function(){
     left: this.left // undefined
   };
   this.$node.css(styleSettings);
+};
+
+Dancer.prototype.pushToWall = function () {
+  console.log('Dancer.pushToWall');
+  var that = this;
+  TweenMax.to(this.$node[0], 0.5, {
+    css: {'left': '0px'},
+    ease:Linear.easeNone,
+    onComplete: this.goToOriginalPosition.bind(this)
+  });
+};
+
+Dancer.prototype.goToOriginalPosition = function () {
+  TweenMax.to(this.$node[0], 3, {
+    css: {'left': this.left},
+    ease:Linear.easeNone,
+    onComplete: this.resetMovementBehaviours.bind(this)
+  });
+};
+
+Dancer.prototype.resetMovementBehaviours = function () {
+  this.enableMovementBehaviors = true;
 };
 
 Dancer.prototype.miscBehaviors = {

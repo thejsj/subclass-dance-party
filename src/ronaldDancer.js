@@ -4,6 +4,7 @@ var RonaldDancer = function(top, left, timeBetweenSteps){
   this.behaviors["moveInSquare"] = {
     frame: 0,
     framesPerLoop: 4,
+    isMovementRelated: true,
     callback: this.moveInSquare
   }
 };

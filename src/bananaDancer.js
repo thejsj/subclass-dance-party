@@ -6,7 +6,6 @@ var BananaDancer = function(top, left, timeBetweenSteps){
     framesPerLoop: 8,
     callback: this.boogie
   }
-  console.log(this);
 };
 
 
