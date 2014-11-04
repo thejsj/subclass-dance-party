@@ -6,12 +6,9 @@ var Dancer = function(top, left){
   this.top = top;
   this.left = left;
   this.behaviors = {};
-
-
-  // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
-  // this one sets the position to some random default point within the body
   this.setPosition();
-};
+  this.enableMovementBehaviors = true;
+  };
 
 Dancer.prototype.pushClasses = function(classes){
   if(this.classes===undefined){
@@ -25,11 +22,13 @@ Dancer.prototype.pushClasses = function(classes){
 Dancer.prototype.update = function(beat, maxLoopInterval, timeInterval){  //beat will always be 0 - 15
   for(var key in this.behaviors){
     var behavior = this.behaviors[key];
-    // Will we update this frame ?
-    if (beat % (maxLoopInterval/behavior.framesPerLoop) === 0) {
-      // Calculate new frame
-      behavior.frame = Math.floor(beat/(maxLoopInterval/behavior.framesPerLoop)) % behavior.framesPerLoop;
-      behavior.callback.call(this, behavior, timeInterval);
+    if (!behavior.isMovementRelated || (behavior.isMovementRelated && this.enableMovementBehaviors)) {
+      // Will we update this frame ?
+      if (beat % (maxLoopInterval/behavior.framesPerLoop) === 0) {
+        // Calculate new frame
+        behavior.frame = Math.floor(beat/(maxLoopInterval/behavior.framesPerLoop)) % behavior.framesPerLoop;
+        behavior.callback.call(this, behavior, timeInterval);
+      }
     }
   }
 };
@@ -42,6 +41,10 @@ Dancer.prototype.setPosition = function(){
     left: this.left // undefined
   };
   this.$node.css(styleSettings);
+};
+
+Dancer.prototype.pushToWall = function () {
+  TweenMax.to(this.$node[0], 1000 , {"css": {'left': '0px' }, ease:Linear.easeIn})
 };
 
 Dancer.prototype.miscBehaviors = {

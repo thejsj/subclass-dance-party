@@ -52,11 +52,19 @@ body, a:link, a:visited, a:active {
   position: absolute;
   width: 200px;
   height: 200px; }
-  .dancer.tip-left {
-    -ms-transform: rotate(-15deg);
-    /* IE 9 */
-    -webkit-transform: rotate(-15deg);
-    /* Chrome, Safari, Opera */
-    transform: rotate(-15deg); }
-  .dancer.ronald {
-    color: white; }
+.dancer.tip-left {
+  -ms-transform: rotate(-15deg);
+  /* IE 9 */
+  -webkit-transform: rotate(-15deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(-15deg); }
+.dancer.ronald {
+  color: white; }
+.shy-dancer {
+  background-repeat: no-repeat;
+  height:40px;
+  width:35px;
+  padding:15px;
+  background-position: center center;
+  background-size: contain;
+}

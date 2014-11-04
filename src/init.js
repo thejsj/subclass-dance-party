@@ -5,6 +5,7 @@ $(document).ready(function () {
     self.init = function () {
       self.$danceFloor = $("body");
       self.$addDancerButton = $(".addDancerButton");
+      self.$pushToWallButton = $(".pushToWallButton");
       self.$addDancerButton.on("click", self.addDancerHandler);
       self.index = 0;
       self.interval = 60;
@@ -19,8 +20,7 @@ $(document).ready(function () {
     self.addDancer = function (dancerConstructor) {
       var dancer = new dancerConstructor(
         self.$danceFloor.height() * Math.random(),
-        self.$danceFloor.width() * Math.random(),
-        Math.random() * 1000
+        self.$danceFloor.width() * Math.random()
       );
       self.$danceFloor.append(dancer.$node);
       self.dancers.push(dancer);
@@ -28,6 +28,16 @@ $(document).ready(function () {
     self.addDancerHandler = function (event) {
       var dancerConstructorName = $(this).data("dancer-maker-function-name");
       self.addDancer(window[dancerConstructorName]);
+    };
+    self.pushToWall = function () {
+      // Disable movement behaviors
+      for (var i = 0; i < self.dancers.length; i++) {
+        self.dancers[i].enableMovementBehaviors = false;
+      }
+      // Push to wall
+      for (var i = 0; i < self.dancers.length; i++) {
+        self.dancers[i].pushToWall();
+      }
     };
     self.update = function () {
       self.index++;
