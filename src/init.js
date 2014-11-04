@@ -7,7 +7,8 @@ $(document).ready(function(){
       self.$addDancerButton = $(".addDancerButton");
       self.$addDancerButton.on("click",self.addDancerHandler);
       self.index = 0;
-      self.interval = 35;
+      self.interval = 70;
+      self.maxLoopInterval = 16;
       self.animationLoop = setInterval(self.update,self.interval);
 
       // Add a couple of Ronalds
@@ -31,8 +32,10 @@ $(document).ready(function(){
     self.update = function(){
       self.index++;
       for(var i = 0; i < self.dancers.length; i++){
-        self.dancers[i].update(self.index%16);
+        self.dancers[i].update(self.index % self.maxLoopInterval, self.maxLoopInterval, self.interval);
       }
+      console.log(self.dancers[0]);
+      console.log(self.dancers[0].update);
     }
 
     self.init();

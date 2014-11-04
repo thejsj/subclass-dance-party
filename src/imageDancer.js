@@ -4,37 +4,20 @@ var ImageDancer = function(slug, top, left){
   this.slug = slug;
   this._frame = 0;
   this._framesPerLoop = 2;
-  this.behaviors = {};
   this.behaviors["background"] = {
     frame: 0,
     framesPerLoop: 2,
     callback: this.addBackground
-  };
-  this.behaviors["tip-left"] = {
-    frame: 0,
-    framesPerLoop: 1,
-    callback: this.tipLeft
   };
 };
 
 ImageDancer.prototype = Object.create(Dancer.prototype);
 ImageDancer.prototype.constructor = ImageDancer;
 
-ImageDancer.prototype.update = function(beat){  //beat will always be 0 - 15
-  for(var key in this.behaviors){
-    var behavior = this.behaviors[key];
-    // Will we update this frame ?
-    if (beat % (this.maxLoopInterval/behavior.framesPerLoop) === 0) {
-      // Calculate new frame
-      behavior.frame = Math.floor(beat/(this.maxLoopInterval/behavior.framesPerLoop)) % behavior.framesPerLoop;
-      behavior.callback.call(this,behavior.frame);
-    }
-  }
-  Dancer.prototype.update.call(this,beat);
-};
 
-ImageDancer.prototype.addBackground = function(frame){
-  var background = "images/" + this.slug + "/" + frame + ".png";
+
+ImageDancer.prototype.addBackground = function(behavior){
+  var background = "images/" + this.slug + "/" + behavior.frame + ".png";
   this.$node.css("background-image", 'url(' + background + ')');
 }
 
@@ -42,4 +25,21 @@ ImageDancer.prototype.tipLeft = function(){
   this.$node.toggleClass("tip-left");
 }
 
-ImageDancer.prototype.maxLoopInterval = 16;
+ImageDancer.prototype.moveInSquare = function (behavior, timeInterval) {
+  var css;
+  var distance = 35;
+  if (behavior.frame===0){
+    css = {top: (this.top-distance)+"px"};
+  } else if (behavior.frame === 1) {
+    css = {left: (this.left-distance)+"px"};
+    //move right
+  } else if (behavior.frame === 2) {
+    css = {top: (this.top+distance)+"px"};
+    //move up
+  } else if (behavior.frame === 3) {
+    css = {left: (this.left+distance)+"px"};
+    //move left
+  }
+  TweenMax.to(this.$node[0], timeInterval * 4 / 1000 , {"css":css, ease:Linear.easeNone})
+}
+
