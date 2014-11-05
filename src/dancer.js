@@ -2,12 +2,17 @@
 var Dancer = function(top, left){
   // use jQuery to create an HTML <span> tag
   this.pushClasses(["dancer"]);
-  this.$node = $('<span class="'+this.classes.join(' ')+'"></span>');
+  var html = '<span class="'+this.classes.join(' ')+'">';
+  html += '<span class="image background"></span>';
+  html += '<span class="glow background"></span>';
+  html += '</span>';
+  this.$node = $(html);
   this.top = top;
   this.left = left;
   this.behaviors = {};
   this.setPosition();
   this.enableMovementBehaviors = true;
+
 };
 
 Dancer.prototype.pushClasses = function(classes){
@@ -43,25 +48,31 @@ Dancer.prototype.setPosition = function(){
   this.$node.css(styleSettings);
 };
 
-Dancer.prototype.pushToWall = function () {
+Dancer.prototype.pushToWall = function (callback) {
   var that = this;
   TweenMax.to(this.$node[0], 0.5, {
     css: {'left': '0px'},
     ease:Linear.easeNone,
-    onComplete: this.goToOriginalPosition.bind(this)
+    // onComplete: this.goToOriginalPosition.bind(this,callback)
   });
 };
 
-Dancer.prototype.goToOriginalPosition = function () {
+Dancer.prototype.goToOriginalPosition = function (callback) {
   TweenMax.to(this.$node[0], 3, {
     css: {'left': this.left},
     ease:Linear.easeNone,
-    onComplete: this.resetMovementBehaviors.bind(this)
+    onComplete: this.resetMovementBehaviors.bind(this,callback)
   });
 };
 
-Dancer.prototype.resetMovementBehaviors = function () {
+Dancer.prototype.resetMovementBehaviors = function (callback) {
   this.enableMovementBehaviors = true;
+  if(typeof callback=== 'function'){
+    callback();
+    console.log("execute callback");
+  } else {
+    console.log("no callback");
+  }
 };
 
 Dancer.prototype.animateToPosition = function (x, y, time, callback) {
@@ -73,24 +84,24 @@ Dancer.prototype.animateToPosition = function (x, y, time, callback) {
 };
 
 Dancer.prototype.activateCongaLine = function (index, x, y) {
-  var radius = 200;
-  this.congaTween = TweenMax.to(
-    this.$node[0],
-    4,
-    {
-      bezier: [
-        {x: radius, y: radius},
-        {x: 0, y: (radius * 2)},
-        {x: -radius, y: radius},
-        {x: 0, y: 0}
-      ],
-      ease:Linear.easeNone,
-      paused:true,
-      repeat: -1
-    }
-  );
-  this.animateToPosition(x, y, index * 0.5, function () {
-    this.congaTween.play();
+    window.congaTween = this.congaTween;
+    this.animateToPosition(x, y, index * 0.15, function () {
+      var radius = 200;
+      this.congaTween = TweenMax.to(
+        this.$node[0],
+        4,
+        {
+          bezier: [
+            {x: radius, y: radius},
+            {x: 0, y: (radius * 2)},
+            {x: -radius, y: radius},
+            {x: 0, y: 0}
+          ],
+          ease:Linear.easeNone,
+          repeat: -1
+        }
+      );
+
   }.bind(this));
 };
 

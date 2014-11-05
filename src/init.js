@@ -31,8 +31,8 @@ $(document).ready(function () {
     };
     self.addDancer = function (dancerConstructor) {
       var dancer = new dancerConstructor(
-        self.$danceFloor.height() * Math.random(),
-        self.$danceFloor.width() * Math.random()
+        (self.$danceFloor.height() - 200) * Math.random(),
+        (self.$danceFloor.width() - 200) * Math.random()
       );
       self.$danceFloor.append(dancer.$node);
       self.dancers.push(dancer);
@@ -43,21 +43,26 @@ $(document).ready(function () {
     };
     self.pushWallHandler = function () {
       if (self.congaActive) {
-        self.deactivateCongaLine();
+        self.congaHandler();
       }
       if (!self.pushToWallActive) {
-        this.pushToWall();
+        self.pushToWall();
+      } else {
+        self.deactivatePushToWall();
       }
     };
     self.congaHandler = function () {
       if (!self.congaActive) {
         self.activateCongaLine();
+        self.$goIntoCongaLineButton.addClass("active");
       } else {
         self.deactivateCongaLine();
+        self.$goIntoCongaLineButton.removeClass("active");
       }
     };
     self.pushToWall = function () {
-      this.pushToWallActive();
+      self.pushToWallActive= true;
+      self.$pushToWallButton.addClass("active");
       // Disable movement behaviors
       for (var i = 0; i < self.dancers.length; i++) {
         self.dancers[i].enableMovementBehaviors = false;
@@ -66,6 +71,16 @@ $(document).ready(function () {
       for (var i = 0; i < self.dancers.length; i++) {
         self.dancers[i].pushToWall();
       }
+    };
+    self.deactivatePushToWall = function () {
+      // Push to wall
+      for (var i = 0; i < self.dancers.length; i++) {
+        self.dancers[i].goToOriginalPosition(self.pushToWallFinish);
+      }
+    };
+    self.pushToWallFinish = function(){
+      self.pushToWallActive=false;
+      self.$pushToWallButton.removeClass("active")
     };
     self.activateCongaLine = function () {
       console.log(' -- activateCongaLine');

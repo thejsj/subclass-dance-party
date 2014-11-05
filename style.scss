@@ -12,6 +12,10 @@
   -webkit-transition: background-size $time ease-in;
 }
 
+@mixin radial-bg ($color) {
+  background: radial-gradient($color 50%, rgba(0, 0, 0, 0) 70%);
+}
+
 body, html{
   height:100%;
   overflow: hidden;
@@ -36,6 +40,8 @@ body, a:link, a:visited, a:active {
 .topbar {
   height:34px;
   background-color: #256EB6;
+  z-index: 9999;
+  position: relative;
   .title, a {
     font-weight: bold;
     text-shadow: #333 1px 1px 1px;
@@ -63,7 +69,12 @@ body, a:link, a:visited, a:active {
     box-shadow: inset rgba(0,0,0,0.35) 0px 0px 5px;
     display: inline-block;
     margin: 0;
+    &.active {
+      background-color:white;
+      color:#256EB6;
+    }
   }
+
 }
 .dancer{
 /*  border:10px solid red;
@@ -71,6 +82,22 @@ body, a:link, a:visited, a:active {
   position:absolute;
   width: 200px;
   height: 200px;
+
+  .background {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    &.glow{
+      @include radial-bg(blue);
+    }
+    &.image{
+      z-index: 2;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
 
   &.tip-left {
     @include css-rotate(-15deg);
@@ -85,6 +112,11 @@ body, a:link, a:visited, a:active {
     &.left-right {
       @include css-rotate(20deg);
     }
+    .background {
+      &.glow{
+        @include radial-bg(yellow);
+      }
+    }
   }
 
   &.barack-dancer {
@@ -96,6 +128,26 @@ body, a:link, a:visited, a:active {
       background-size: 50%;
       @include css-background-size(500ms);
     }
+    .background {
+      &.glow{
+        @include radial-bg(purple);
+      }
+    }
+  }
+
+  &.abraham-dancer {
+    .background {
+      &.glow{
+        @include radial-bg(green);
+      }
+    }
+  }
+  &.shy-dancer {
+    .background {
+      &.glow{
+        @include radial-bg(pink);
+      }
+    }
   }
 }
 
@@ -106,4 +158,5 @@ body, a:link, a:visited, a:active {
   padding:15px;
   background-position: center center;
   background-size: contain;
+  opacity: 0.6;
 }

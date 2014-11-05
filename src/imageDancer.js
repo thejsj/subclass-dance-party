@@ -16,7 +16,8 @@ ImageDancer.prototype.constructor = ImageDancer;
 
 ImageDancer.prototype.addBackground = function(behavior){
   var background = "images/" + this.slug + "/" + behavior.frame + ".png";
-  this.$node.css("background-image", 'url(' + background + ')');
+  this.$node.find(".image")
+    .css("background-image", 'url(' + background + ')');
 }
 
 

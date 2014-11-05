@@ -14,8 +14,8 @@ ShyDancer.prototype.constructor = ShyDancer;
 
 ShyDancer.prototype.runAway = function(){
   var styleSettings = {
-    top:  window.globalController.$danceFloor.height() * Math.random(),
-    left: window.globalController.$danceFloor.height() * Math.random()
+    top:  (window.globalController.$danceFloor.height() - 200) * Math.random(),
+    left: (window.globalController.$danceFloor.height() - 200) * Math.random()
   };
   TweenMax.to(this.$node[0], 1, {"css":styleSettings, ease:Linear.easeOut})
 }
